@@ -56,6 +56,10 @@ Physically Received = Accepted + Damaged + Rejected.
 
 **BR-010:** Every posted inventory quantity change must be traceable to its originating business operation.
 
+**BR-011:** Physically received quantity and accepted quantity must be tracked separately. Outstanding receivable quantity is calculated from posted physical receipts, not accepted quantities.
+
+**BR-012:** Damaged or rejected quantities do not automatically increase the outstanding receivable quantity. Any supplier replacement or additional receipt requires a separately authorized business decision and must not bypass the Purchase Order receiving limit.
+
 ## 6. Example
 
 Purchase Order: 100 laptops
@@ -102,7 +106,7 @@ After putaway of all 90 accepted laptops:
 
 - Exact Goods Receipt lifecycle statuses and allowed transitions.
 - Representation of receiving, damaged, and rejected holding locations.
-- How outstanding receivable quantity is affected by rejected or damaged goods and supplier replacement arrangements.
+- How separately authorized supplier replacements will be represented in a future workflow.
 - Exact putaway confirmation workflow and partial putaway handling.
 - Concurrent receipts against the same Purchase Order line.
 
