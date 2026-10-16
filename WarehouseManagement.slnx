@@ -2,6 +2,7 @@
   <Folder Name="/src/">
     <Project Path="src/WarehouseManagement.Api/WarehouseManagement.Api.csproj" />
     <Project Path="src/WarehouseManagement.Domain/WarehouseManagement.Domain.csproj" />
+    <Project Path="src/WarehouseManagement.Infrastructure/WarehouseManagement.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/WarehouseManagement.Tests/WarehouseManagement.Tests.csproj" />

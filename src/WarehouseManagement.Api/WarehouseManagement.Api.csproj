@@ -8,11 +8,16 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.OpenApi" Version="2.7.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\WarehouseManagement.Domain\WarehouseManagement.Domain.csproj" />
+    <ProjectReference Include="..\WarehouseManagement.Infrastructure\WarehouseManagement.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
