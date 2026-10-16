@@ -1,6 +1,10 @@
-@WarehouseManagement.Api_HostAddress = http://localhost:5043
+@host = http://localhost:5043
 
-GET {{WarehouseManagement.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+### Create product
+POST {{host}}/api/products
+Content-Type: application/json
 
-###
+{
+  "sku": "LAP-002",
+  "name": "Dell Latitude 5450"
+}

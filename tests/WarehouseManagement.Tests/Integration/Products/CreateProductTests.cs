@@ -14,7 +14,7 @@ public class CreateProductTests
         // Arrange
         await using var factory = new CustomWebApplicationFactory();
 
-await factory.InitializeDatabaseAsync();
+        await factory.InitializeDatabaseAsync();
 
         using var client = factory.CreateClient();
 
@@ -54,7 +54,7 @@ await factory.InitializeDatabaseAsync();
         // Arrange
         await using var factory = new CustomWebApplicationFactory();
 
-await factory.InitializeDatabaseAsync();
+        await factory.InitializeDatabaseAsync();
 
         using var client = factory.CreateClient();
 
@@ -87,58 +87,58 @@ await factory.InitializeDatabaseAsync();
     }
 
     [Fact]
-public async Task CreateProduct_WithDuplicateSku_Returns409AndDoesNotDuplicate()
-{
-    // Arrange
-    await using var factory = new CustomWebApplicationFactory();
-
-await factory.InitializeDatabaseAsync();
-
-    using var client = factory.CreateClient();
-
-    var sku = $"TEST-{Guid.NewGuid():N}";
-
-    var firstRequest = new
+    public async Task CreateProduct_WithDuplicateSku_Returns409AndDoesNotDuplicate()
     {
-        Sku = sku,
-        Name = "Original Product"
-    };
+        // Arrange
+        await using var factory = new CustomWebApplicationFactory();
 
-    var duplicateRequest = new
-    {
-        Sku = sku,
-        Name = "Duplicate Product"
-    };
+        await factory.InitializeDatabaseAsync();
 
-    // Create the original product
-    var firstResponse = await client.PostAsJsonAsync(
-        "/api/products",
-        firstRequest);
+        using var client = factory.CreateClient();
 
-    Assert.Equal(HttpStatusCode.Created, firstResponse.StatusCode);
+        var sku = $"TEST-{Guid.NewGuid():N}";
 
-    // Act: Attempt to create another product with the same SKU
-    var duplicateResponse = await client.PostAsJsonAsync(
-        "/api/products",
-        duplicateRequest);
+        var firstRequest = new
+        {
+            Sku = sku,
+            Name = "Original Product"
+        };
 
-    // Assert: HTTP response
-    Assert.Equal(HttpStatusCode.Conflict, duplicateResponse.StatusCode);
+        var duplicateRequest = new
+        {
+            Sku = sku,
+            Name = "Duplicate Product"
+        };
 
-    // Assert: Only the original product exists
-    using var verificationScope = factory.Services.CreateScope();
+        // Create the original product
+        var firstResponse = await client.PostAsJsonAsync(
+            "/api/products",
+            firstRequest);
 
-    var verificationDbContext = verificationScope.ServiceProvider
-        .GetRequiredService<WarehouseDbContext>();
+        Assert.Equal(HttpStatusCode.Created, firstResponse.StatusCode);
 
-    var products = await verificationDbContext.Products
-        .AsNoTracking()
-        .Where(p => p.Sku == sku)
-        .ToListAsync();
+        // Act: Attempt to create another product with the same SKU
+        var duplicateResponse = await client.PostAsJsonAsync(
+            "/api/products",
+            duplicateRequest);
 
-    Assert.Single(products);
-    Assert.Equal("Original Product", products[0].Name);
-}
+        // Assert: HTTP response
+        Assert.Equal(HttpStatusCode.Conflict, duplicateResponse.StatusCode);
+
+        // Assert: Only the original product exists
+        using var verificationScope = factory.Services.CreateScope();
+
+        var verificationDbContext = verificationScope.ServiceProvider
+            .GetRequiredService<WarehouseDbContext>();
+
+        var products = await verificationDbContext.Products
+            .AsNoTracking()
+            .Where(p => p.Sku == sku)
+            .ToListAsync();
+
+        Assert.Single(products);
+        Assert.Equal("Original Product", products[0].Name);
+    }
 
 
 
