@@ -1,0 +1,10 @@
+@host = http://localhost:5043
+
+### Create product
+POST {{host}}/api/products
+Content-Type: application/json
+
+{
+  "sku": "LAP-002",
+  "name": "Dell Latitude 5450"
+}
